@@ -10,6 +10,9 @@ Option Strict On
 
 Imports System
 Module ConvertAndValidate
+
+    Dim aValidNumber As Integer
+
     Sub Main(args As String())
         Dim userInput As String
         Dim quit As Boolean
@@ -21,19 +24,26 @@ Module ConvertAndValidate
                 Case "Q"
                     quit = True
                 Case Else
+                    If ConversionValid(userInput) = True Then
 
+                        Console.WriteLine($"{userInput} converted successfully to an integer of {aValidNumber}!")
+
+                    Else
+
+                        Console.WriteLine($"Oops, {userInput} does not seem to be a number")
+                    End If
             End Select
         Loop
     End Sub
 
-    Function ConversionValid(convertThisString As String, toThisInteger As Integer) As Boolean
+    Function ConversionValid(convertThisString As String) As Boolean
         Dim status As Boolean = True
 
         Try
-            toThisInteger = CInt(convertThisString)
+            aValidNumber = CInt(convertThisString)
         Catch ex As Exception
             status = False
         End Try
-         Return status
+        Return status
     End Function
 End Module
